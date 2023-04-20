@@ -9,7 +9,7 @@ CREATE TABLE Banks (
     BankName VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
     NoAccounts INT CHECK (NoAccounts > 0),
-    Security VARCHAR(50),
+    Security VARCHAR(50) CHECK (Security IN ('excellent', 'very good', 'good', 'weak')),
     PRIMARY KEY (BankName, City)
 );
 
@@ -53,7 +53,7 @@ Foreign key: none
 Constraints: Age > 0, NoYears < Age
 */
 CREATE TABLE Robbers (
-    RobberId INT NOT NULL,
+    RobberId SERIAL,
     Nickname VARCHAR(50),
     Age INT CHECK (Age > 0),
     NoYears INT CHECK (NoYears < Age),
@@ -65,12 +65,13 @@ Skills
 Attributes: SkillId, Description
 Primary key: SkillId
 Foreign key: none
-Constraints: Description is not null
+Constraints: Description is not null, Description is UNIQUE
 */
 CREATE TABLE Skills (
-    SkillId INT NOT NULL,
-    Description VARCHAR(50) NOT NULL,
+    SkillId SERIAL,
+    Description VARCHAR(50) NOT NULL
     PRIMARY KEY (SkillId)
+    CONSTRAINT unique_Description UNIQUE (Description)
 );
 
 /*
@@ -118,7 +119,7 @@ CREATE TABLE Accomplices (
     BankName VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
     Date DATE NOT NULL,
-    Share INT,
+    Share DECIMAL (10, 2),
     PRIMARY KEY (RobberId, BankName, City, Date),
     FOREIGN KEY (RobberId) REFERENCES Robbers (RobberId),
     FOREIGN KEY (BankName, City, Date) REFERENCES Robberies (BankName, City, Date)
@@ -129,4 +130,7 @@ Changes:
 - Changed Amount (Robberies) from INTEGER to type DECIMAL (10, 2) 
 ALTER TABLE Robberies
 ALTER COLUMN Amount TYPE DECIMAL (10, 2);
+- Changed RobberId (Robbers) from INTEGER to type SERIAL
+ALTER TABLE Robbers
+ALTER COLUMN RobberId TYPE SERIAL;
 */
