@@ -124,13 +124,3 @@ CREATE TABLE Accomplices (
     FOREIGN KEY (RobberId) REFERENCES Robbers (RobberId),
     FOREIGN KEY (BankName, City, Date) REFERENCES Robberies (BankName, City, Date)
 );
-
-/*
-Changes:
-- Changed Amount (Robberies) from INTEGER to type DECIMAL (10, 2) 
-ALTER TABLE Robberies
-ALTER COLUMN Amount TYPE DECIMAL (10, 2);
-- Changed RobberId (Robbers) from INTEGER to type SERIAL
-ALTER TABLE Robbers
-ALTER COLUMN RobberId TYPE SERIAL;
-*/
