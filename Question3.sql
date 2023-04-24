@@ -14,7 +14,7 @@ INSERT INTO Banks (BankName, City, NoAccounts, Security) VALUES (‘EasyLoan Ban
 INSERT INTO Robberies (BankName, City, Date, Amount) VALUES ('NXP Bank', 'Chicago', '2019-01-08', 1000);
 
 --4a)
-DELETE FROM Skills WHERE SkillId = 1 AND Description = ‘Driving’;
+DELETE FROM Skills WHERE SkillId = 1;
 
 --5a)
  DELETE FROM Banks WHERE BankName = 'PickPocket Bank' AND City = 'Evanston' AND NoAccounts = 2000 AND Security = 'very good';

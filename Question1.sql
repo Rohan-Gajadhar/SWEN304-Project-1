@@ -1,10 +1,3 @@
-/* 
-Banks
-Attributes: BankName, City, NoAccounts, Security
-Primary key: BankName, City
-Foreign key: none
-Constraints: NoAccounts > 0
-*/
 CREATE TABLE Banks (
     BankName VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
@@ -13,13 +6,6 @@ CREATE TABLE Banks (
     PRIMARY KEY (BankName, City)
 );
 
-/*
-Robberies
-Attributes: BankName, City, Date, Amount
-Primary key: BankName, City, Date
-Foreign key: BankName, City (Banks)
-Constraints: Amount > 0
-*/
 CREATE TABLE Robberies (
     BankName VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
@@ -29,13 +15,6 @@ CREATE TABLE Robberies (
     FOREIGN KEY (BankName, City) REFERENCES Banks (BankName, City)
 );
 
-/*
-Plans 
-Attributes: BankName, City, NoRobbers, PlannedDate
-Primary key: BankName, City, PlannedDate
-Foreign key: BankName, City (Banks)
-Constraints: NoRobbers > 0
-*/
 CREATE TABLE Plans (
     BankName VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
@@ -45,13 +24,6 @@ CREATE TABLE Plans (
     FOREIGN KEY (BankName, City) REFERENCES Banks (BankName, City)
 );
 
-/*
-Robbers
-Attributes: RobberId, Nickname, Age, NoYears
-Primary key: RobberId
-Foreign key: none
-Constraints: Age > 0, NoYears < Age
-*/
 CREATE TABLE Robbers (
     RobberId SERIAL,
     Nickname VARCHAR(50),
@@ -60,13 +32,6 @@ CREATE TABLE Robbers (
     PRIMARY KEY (RobberId)
 );
 
-/*
-Skills
-Attributes: SkillId, Description
-Primary key: SkillId
-Foreign key: none
-Constraints: Description is not null, Description is UNIQUE
-*/
 CREATE TABLE Skills (
     SkillId SERIAL,
     Description VARCHAR(50) NOT NULL
@@ -74,13 +39,6 @@ CREATE TABLE Skills (
     CONSTRAINT unique_Description UNIQUE (Description)
 );
 
-/*
-HasSkills
-Attributes: RobberId, SkillId, Preference, Grade
-Primary key: RobberId, SkillId
-Foreign key: RobberId (Robbers), SkillId (Skills)
-Constraints: Preference > 0
-*/
 CREATE TABLE HasSkills (
     RobberId INT NOT NULL,
     SkillId INT NOT NULL,
@@ -91,13 +49,6 @@ CREATE TABLE HasSkills (
     FOREIGN KEY (SkillId) REFERENCES Skills (SkillId)
 );
 
-/*
-HasAccounts
-Attributes: RobberId, BankName, City
-Primary key: RobberId, BankName, City
-Foreign key: RobberId (Robbers), BankName, City (Banks)
-Constraints: none
-*/
 CREATE TABLE HasAccounts (
     RobberId INT NOT NULL,
     BankName VARCHAR(50) NOT NULL,
@@ -107,13 +58,6 @@ CREATE TABLE HasAccounts (
     FOREIGN KEY (BankName, City) REFERENCES Banks (BankName, City)
 );
 
-/*
-Accomplices
-Attributes: RobberId, BankName, City, Date, Share
-Primary key: RobberId, BankName, City, Date
-Foreign key: RobberId (Robbers), BankName, City, Date (Robberies)
-Constraints: none
-*/
 CREATE TABLE Accomplices (
     RobberId INT NOT NULL, 
     BankName VARCHAR(50) NOT NULL,
